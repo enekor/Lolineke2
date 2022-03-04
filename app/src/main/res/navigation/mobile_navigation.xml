@@ -4,7 +4,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/mobile_navigation"
             app:startDestination="@id/nav_home">
-    <fragment android:id="@+id/nav_home" android:name="com.example.lolineke2.aplicacion.ui.home.Home"
+    <fragment android:id="@+id/nav_home" android:name="com.example.lolineke2.aplicacion.ui.home.seleccionarTipoPista.Home"
               android:label="fragment_home" tools:layout="@layout/fragment_home"/>
     <fragment android:id="@+id/nav_reservas" android:name="com.example.lolineke2.aplicacion.ui.reservas.Reservas"
               android:label="fragment_reservas" tools:layout="@layout/fragment_reservas"/>

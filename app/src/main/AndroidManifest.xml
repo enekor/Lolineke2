@@ -10,6 +10,11 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Lolineke2">
         <activity
+                android:name=".aplicacion.ui.home.AlquilarActivity"
+                android:exported="true"
+                android:label="@string/title_activity_alquilar"
+                android:theme="@style/Theme.Lolineke2.NoActionBar"/>
+        <activity
                 android:name=".aplicacion.Home"
                 android:exported="true"
                 android:label="@string/title_activity_home"
