@@ -1,9 +1,13 @@
 package com.example.lolineke2.aplicacion;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import androidx.annotation.NonNull;
 import com.example.lolineke2.R;
+import com.example.lolineke2.aplicacion.ui.user.UserActivity;
 import com.example.lolineke2.databinding.ActivityHomeBinding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -46,6 +50,15 @@ public class Home extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.myProfile){
+            Intent myProfile = new Intent(this, UserActivity.class);
+            startActivity(myProfile);
+        }
+        return false;
     }
 
     @Override

@@ -46,7 +46,7 @@
     <Button
             android:text="log in"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/boton"
+            android:layout_height="wrap_content" android:id="@+id/button_loggin"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="35dp"
             app:layout_constraintBottom_toBottomOf="@+id/button_go_to_register"/>
 

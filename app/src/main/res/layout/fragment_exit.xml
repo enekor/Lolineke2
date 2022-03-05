@@ -3,11 +3,12 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".aplicacion.ui.home.unoSeleccionarTipoPista.Home">
+             tools:context=".aplicacion.ui.exit.Exit">
 
-    <androidx.fragment.app.FragmentContainerView
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.example.lolineke2.aplicacion.ui.home.cargadoPorLaActividadAnterior.MainFragment"
-            android:id="@+id/fragmentContainerView2" tools:layout="@layout/activity_main"/>
+            android:text="@string/hello_blank_fragment"/>
+
 </FrameLayout>

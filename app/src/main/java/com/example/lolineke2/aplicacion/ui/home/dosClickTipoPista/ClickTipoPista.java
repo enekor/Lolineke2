@@ -1,14 +1,21 @@
-package com.example.lolineke2.aplicacion.ui.home.clickTipoPista;
+package com.example.lolineke2.aplicacion.ui.home.dosClickTipoPista;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.lolineke2.R;
-import com.example.lolineke2.aplicacion.ui.home.Intercambio;
-import com.example.lolineke2.aplicacion.ui.home.clickPista.ClickPista;
+import com.example.lolineke2.aplicacion.ui.Intercambio;
+import com.example.lolineke2.aplicacion.ui.home.tresClickPista.ClickPista;
 import com.example.lolineke2.databinding.FragmentClickTipoPistaBinding;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +25,9 @@ import com.example.lolineke2.databinding.FragmentClickTipoPistaBinding;
 public class ClickTipoPista extends Fragment {
 
     private FragmentClickTipoPistaBinding binding;
+    private List<String> pistas;
+    private ArrayAdapter<String> pistasLista;
+
     public ClickTipoPista() {
         // Required empty public constructor
     }
@@ -40,6 +50,7 @@ public class ClickTipoPista extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
@@ -48,13 +59,34 @@ public class ClickTipoPista extends Fragment {
 
         binding = FragmentClickTipoPistaBinding.inflate(inflater,container,false);
 
-        binding.button.setOnClickListener(new View.OnClickListener() {
+        binding.titulo.setText("Nuestras pistas de "+Intercambio.getInstance().getDeporteSeleccionado());
+
+        setListInfo();
+        setOnClick();
+
+        return binding.getRoot();
+    }
+
+    private void setListInfo(){
+        pistas = new ArrayList<>(Arrays.asList("uno","dos","tres"));
+        pistasLista = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,pistas);
+        Log.i("size",""+pistasLista.getCount());
+        binding.pistasLV.setAdapter(pistasLista);
+    }
+
+    private void setOnClick(){
+        binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClickPista clickPista = new ClickPista();
-                Intercambio.getInstance().getAlquilarActivity().changeFragment(clickPista);
+                getActivity().finish();
             }
         });
-        return binding.getRoot();
+
+        binding.pistasLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getActivity(), ""+pistas.get(i), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

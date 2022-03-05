@@ -10,6 +10,12 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Lolineke2">
         <activity
+                android:name=".aplicacion.ui.reservas.verReservaX.VerMiReservaActivity"
+                android:exported="true"/>
+        <activity
+                android:name=".aplicacion.ui.user.UserActivity"
+                android:exported="true"/>
+        <activity
                 android:name=".aplicacion.ui.home.AlquilarActivity"
                 android:exported="true"
                 android:label="@string/title_activity_alquilar"

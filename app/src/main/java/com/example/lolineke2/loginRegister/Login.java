@@ -2,12 +2,14 @@ package com.example.lolineke2.loginRegister;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.lolineke2.R;
 import com.example.lolineke2.aplicacion.Home;
+import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.databinding.FragmentLoginBinding;
 
 /**
@@ -51,17 +53,35 @@ public class Login extends Fragment {
         binding = FragmentLoginBinding.inflate(inflater,container,false);
         View root = binding.getRoot();
 
-        binding.boton.setOnClickListener(new View.OnClickListener() {
+        binding.buttonLoggin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openActivity(Home.class);
+                if(checkFields()){
+                    openActivity(Home.class);
+                }else{
+                    Toast.makeText(getActivity(), "Hay campos vacios", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        binding.buttonGoToRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intercambio.getInstance().getFragmentHolder().changeFragment(new Register());
+            }
+        });
+
+
         return root;
     }
 
     private void openActivity(Class clase){
         Intent intent = new Intent(getActivity(),clase);
         startActivity(intent);
+    }
+
+    private boolean checkFields(){
+        return !binding.etEmailLogin.getText().toString().equalsIgnoreCase("") &&
+                !binding.etPasswordLogin.getText().toString().equalsIgnoreCase("");
     }
 }

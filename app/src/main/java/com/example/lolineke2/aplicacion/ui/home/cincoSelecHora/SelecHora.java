@@ -1,13 +1,12 @@
-package com.example.lolineke2.aplicacion.ui.home.selecHora;
+package com.example.lolineke2.aplicacion.ui.home.cincoSelecHora;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.lolineke2.R;
-import com.example.lolineke2.aplicacion.ui.home.Intercambio;
-import com.example.lolineke2.aplicacion.ui.home.reservaPreview.ReservaPreview;
+import com.example.lolineke2.aplicacion.ui.Intercambio;
+import com.example.lolineke2.aplicacion.ui.home.seisReservaPreview.ReservaPreview;
 import com.example.lolineke2.databinding.FragmentSelecHoraBinding;
 
 /**
@@ -52,7 +51,7 @@ public class SelecHora extends Fragment {
             @Override
             public void onClick(View view) {
                 ReservaPreview preview = new ReservaPreview();
-                Intercambio.getInstance().getAlquilarActivity().changeFragment(preview);
+                Intercambio.getInstance().getFragmentHolder().changeFragment(preview);
             }
         });
         return binding.getRoot();

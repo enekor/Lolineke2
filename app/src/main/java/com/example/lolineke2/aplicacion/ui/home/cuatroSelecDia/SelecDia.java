@@ -1,24 +1,24 @@
-package com.example.lolineke2.aplicacion.ui.home.clickPista;
+package com.example.lolineke2.aplicacion.ui.home.cuatroSelecDia;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.lolineke2.R;
-import com.example.lolineke2.aplicacion.ui.home.Intercambio;
-import com.example.lolineke2.aplicacion.ui.home.selecDia.SelecDia;
-import com.example.lolineke2.databinding.FragmentClickPistaBinding;
+import com.example.lolineke2.aplicacion.ui.Intercambio;
+import com.example.lolineke2.aplicacion.ui.home.cincoSelecHora.SelecHora;
+import com.example.lolineke2.databinding.FragmentSelecDiaBinding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ClickPista#newInstance} factory method to
+ * Use the {@link SelecDia#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClickPista extends Fragment {
+public class SelecDia extends Fragment {
 
-    private FragmentClickPistaBinding binding;
-    public ClickPista() {
+    private FragmentSelecDiaBinding binding;
+
+    public SelecDia() {
         // Required empty public constructor
     }
 
@@ -28,11 +28,11 @@ public class ClickPista extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ClickPista.
+     * @return A new instance of fragment SelecDia.
      */
     // TODO: Rename and change types and number of parameters
-    public static ClickPista newInstance(String param1, String param2) {
-        ClickPista fragment = new ClickPista();
+    public static SelecDia newInstance(String param1, String param2) {
+        SelecDia fragment = new SelecDia();
         return fragment;
     }
 
@@ -44,14 +44,12 @@ public class ClickPista extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        binding = FragmentClickPistaBinding.inflate(inflater,container,false);
-
-        binding.button4.setOnClickListener(new View.OnClickListener() {
+        binding = FragmentSelecDiaBinding.inflate(inflater,container,false);
+        binding.button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SelecDia selecDia = new SelecDia();
-                Intercambio.getInstance().getAlquilarActivity().changeFragment(selecDia);
+                SelecHora selecHora = new SelecHora();
+                Intercambio.getInstance().getFragmentHolder().changeFragment(selecHora);
             }
         });
         return binding.getRoot();
