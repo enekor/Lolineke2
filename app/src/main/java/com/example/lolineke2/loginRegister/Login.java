@@ -1,6 +1,7 @@
 package com.example.lolineke2.loginRegister;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.lolineke2.aplicacion.Home;
+import com.example.lolineke2.aplicacion.rest.model.Usuario;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.databinding.FragmentLoginBinding;
 import com.example.lolineke2.aplicacion.rest.Api;
@@ -26,6 +28,8 @@ public class Login extends Fragment {
 
     private FragmentLoginBinding binding;
     private Api api;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     public Login() {
         // Required empty public constructor
@@ -79,28 +83,7 @@ public class Login extends Fragment {
         binding.buttonLoggin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkFields()){
-                    Call<String> login=api.loginWithoutToken(binding.etEmailLogin.getText().toString(),
-                            binding.etPasswordLogin.getText().toString());
-                    login.enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            if(response.isSuccessful()&&response.code()==200){
-                                String token=response.body();
-                                openActivity(Home.class);
-                                getActivity().finish();
-                            }else{
-                                Toast.makeText(getActivity(), "Error en petición", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
-                            Toast.makeText(getActivity(), "Error en petición", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }else{
-                    Toast.makeText(getActivity(), "Hay campos vacios", Toast.LENGTH_SHORT).show();
-                }
+                login();
             }
         });
 
@@ -110,5 +93,47 @@ public class Login extends Fragment {
                 Intercambio.getInstance().getFragmentHolder().changeFragment(new Register());
             }
         });
+    }
+
+    private void login(){
+        if(checkFields()){
+            Call<Usuario> login = api.loginWithoutToken(binding.etEmailLogin.getText().toString(),
+                    binding.etPasswordLogin.getText().toString());
+            login.enqueue(new Callback<Usuario>() {
+                @Override
+                public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                    if(response.isSuccessful()&&response.code()==200){
+                        loginSuccessful(response);
+                    }else{
+                        Toast.makeText(getActivity(), "Usuario y/o password incorrectos", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<Usuario> call, Throwable t) {
+                    Toast.makeText(getActivity(), "Error en petición", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            Toast.makeText(getActivity(), "Hay campos vacios", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void loginSuccessful(Response<Usuario> response){
+        Usuario user =response.body();
+        Intercambio.getInstance().setUsuario(user);
+
+        putSharedPreferences();
+
+        openActivity(Home.class);
+        getActivity().finish();
+    }
+
+    private void putSharedPreferences(){
+        sharedPreferences = getActivity().getSharedPreferences("login",getActivity().MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        editor.putString("usuario",Intercambio.getInstance().getUsuario().getCorreo());
+        editor.putString("pass",Intercambio.getInstance().getUsuario().getPassword());
+        editor.putString("token",Intercambio.getInstance().getUsuario().getLogin().getToken());
     }
 }
