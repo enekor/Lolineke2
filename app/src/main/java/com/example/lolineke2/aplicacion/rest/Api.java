@@ -1,4 +1,4 @@
-package com.example.lolineke2.loginRegister.rest;
+package com.example.lolineke2.aplicacion.rest;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

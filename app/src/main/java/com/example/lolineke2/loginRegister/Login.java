@@ -7,12 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.lolineke2.R;
 import com.example.lolineke2.aplicacion.Home;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.databinding.FragmentLoginBinding;
-import com.example.lolineke2.loginRegister.rest.Api;
-import com.example.lolineke2.loginRegister.rest.ApiConfig;
+import com.example.lolineke2.aplicacion.rest.Api;
+import com.example.lolineke2.aplicacion.rest.ApiConfig;
 
 import retrofit2.Call;
 import retrofit2.Callback;

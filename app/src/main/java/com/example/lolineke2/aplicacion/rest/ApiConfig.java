@@ -1,4 +1,4 @@
-package com.example.lolineke2.loginRegister.rest;
+package com.example.lolineke2.aplicacion.rest;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
