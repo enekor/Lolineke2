@@ -1,13 +1,9 @@
 package com.example.lolineke2;
 
-import android.content.Intent;
-import android.view.View;
-import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import com.example.lolineke2.aplicacion.Home;
 import com.example.lolineke2.aplicacion.ui.FragmentHolder;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
 
