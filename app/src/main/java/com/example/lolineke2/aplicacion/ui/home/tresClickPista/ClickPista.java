@@ -46,13 +46,24 @@ public class ClickPista extends Fragment {
 
         binding = FragmentClickPistaBinding.inflate(inflater,container,false);
 
-        binding.button4.setOnClickListener(new View.OnClickListener() {
+        setOnClick();
+
+        return binding.getRoot();
+    }
+
+    private void setOnClick(){
+        binding.okClickPista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SelecDia selecDia = new SelecDia();
-                Intercambio.getInstance().getFragmentHolder().changeFragment(selecDia);
+                Intercambio.getInstance().getFragmentHolder().changeFragment(new SelecDia());
             }
         });
-        return binding.getRoot();
+
+        binding.backClickPista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
     }
 }

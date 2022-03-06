@@ -5,13 +5,13 @@
               android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               tools:context=".aplicacion.ui.home.cuatroSelecDia.SelecDia" android:orientation="vertical">
     <TextView
-            android:text="TextView"
+            android:text="Que dia quieres?"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/textView4" android:gravity="center"
+            android:layout_height="wrap_content" android:id="@+id/tituloDia" android:gravity="center"
             android:paddingBottom="25dp" android:paddingTop="25dp"/>
     <CalendarView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/calendarView" android:layout_marginBottom="25dp"/>
+            android:layout_height="wrap_content" android:id="@+id/calendarioDia" android:layout_marginBottom="25dp"/>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -20,10 +20,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Name"
                 android:ems="10"
-                android:id="@+id/editTextTextPersonName" android:minHeight="48dp"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/linearLayout2"/>
+                android:id="@+id/nombreDeQuien" android:minHeight="48dp"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                android:hint="A nombre de quien sera la reserva"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -32,14 +32,14 @@
                 tools:layout_editor_absoluteX="0dp" app:layout_constraintBottom_toBottomOf="parent"
                 android:id="@+id/linearLayout2" android:layout_marginBottom="25dp">
             <Button
-                    android:text="Button"
+                    android:text="Back"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button3" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:id="@+id/backDia" android:layout_weight="1"
                     android:layout_marginEnd="15dp"/>
             <Button
-                    android:text="Button"
+                    android:text="Selec. hora"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button2" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:id="@+id/selecHoraDia" android:layout_weight="1"
                     android:layout_marginStart="15dp"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

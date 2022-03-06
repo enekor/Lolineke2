@@ -1,5 +1,6 @@
 package com.example.lolineke2.aplicacion.ui.home.dosClickTipoPista;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.AdapterView;
@@ -9,7 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.lolineke2.aplicacion.Home;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
+import com.example.lolineke2.aplicacion.ui.home.AlquilarActivity;
+import com.example.lolineke2.aplicacion.ui.home.cincoSelecHora.SelecHora;
+import com.example.lolineke2.aplicacion.ui.home.cuatroSelecDia.SelecDia;
 import com.example.lolineke2.aplicacion.ui.home.tresClickPista.ClickPista;
 import com.example.lolineke2.databinding.FragmentClickTipoPistaBinding;
 
@@ -85,7 +90,16 @@ public class ClickTipoPista extends Fragment {
         binding.pistasLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), ""+pistas.get(i), Toast.LENGTH_SHORT).show();
+                Intercambio.getInstance().getFragmentHolder().changeFragment(new SelecDia());
+            }
+        });
+
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent homeActivity = new Intent(getActivity(), Home.class);
+                startActivity(homeActivity);
+                getActivity().finish();
             }
         });
     }
