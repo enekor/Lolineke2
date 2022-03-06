@@ -7,12 +7,6 @@
                                                    tools:context=".loginRegister.Login">
 
     <!-- TODO: Update blank fragment layout -->
-    <ImageView
-            android:layout_width="0dp"
-            android:layout_height="125dp" android:id="@+id/iv_login"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="35dp" android:layout_marginEnd="50dp"
-            android:layout_marginStart="50dp"/>
     <TextView
             android:text="Log in"
             android:layout_width="wrap_content"
@@ -49,5 +43,11 @@
             android:layout_height="wrap_content" android:id="@+id/button_loggin"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="35dp"
             app:layout_constraintBottom_toBottomOf="@+id/button_go_to_register"/>
+    <ImageView
+            android:src="@drawable/icono"
+            android:layout_width="0dp"
+            android:layout_height="206dp" android:id="@+id/iv_login"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
