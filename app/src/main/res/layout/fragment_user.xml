@@ -8,7 +8,7 @@
 
     <ImageView
             android:layout_width="125dp"
-            android:layout_height="125dp" tools:src="@tools:sample/avatars" android:id="@+id/iv_pfp_uprofile"
+            android:layout_height="125dp" tools:src="@drawable/ic_baseline_person_24" android:id="@+id/iv_pfp_uprofile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="35dp" android:layout_marginEnd="35dp" android:layout_marginStart="35dp"/>
@@ -46,6 +46,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/button_darse_de_baja_uprofile"
             app:layout_constraintEnd_toEndOf="@+id/tv_infouser_uprofile"
-            app:layout_constraintBottom_toBottomOf="@+id/button_go_to_edit_uprofile"/>
+            app:layout_constraintBottom_toBottomOf="@+id/button_go_to_edit_uprofile" android:textColor="#FFFFFF"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

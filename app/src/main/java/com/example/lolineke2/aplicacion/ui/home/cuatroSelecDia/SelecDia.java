@@ -1,6 +1,9 @@
 package com.example.lolineke2.aplicacion.ui.home.cuatroSelecDia;
 
 import android.os.Bundle;
+import android.widget.CalendarView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,14 +47,36 @@ public class SelecDia extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         binding = FragmentSelecDiaBinding.inflate(inflater,container,false);
-        binding.button2.setOnClickListener(new View.OnClickListener() {
+
+        setOnClick();
+
+        return binding.getRoot();
+    }
+
+    private void setOnClick(){
+
+        binding.selecHoraDia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SelecHora selecHora = new SelecHora();
-                Intercambio.getInstance().getFragmentHolder().changeFragment(selecHora);
+                if(checkFields()){
+                    Intercambio.getInstance().getFragmentHolder().changeFragment(new SelecHora());
+                }else{
+                    Toast.makeText(getActivity(), "Hay campos vacios", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        return binding.getRoot();
+
+        binding.backDia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+    }
+
+    private boolean checkFields(){
+        return !binding.nombreDeQuien.getText().toString().equalsIgnoreCase("");
     }
 }

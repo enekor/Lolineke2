@@ -57,6 +57,7 @@ public class Home extends AppCompatActivity {
         if(item.getItemId()==R.id.myProfile){
             Intent myProfile = new Intent(this, UserActivity.class);
             startActivity(myProfile);
+            finish();
         }
         return false;
     }

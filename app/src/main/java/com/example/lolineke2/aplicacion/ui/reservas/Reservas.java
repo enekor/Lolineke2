@@ -2,13 +2,21 @@ package com.example.lolineke2.aplicacion.ui.reservas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.lolineke2.R;
+import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.aplicacion.ui.reservas.verReservaX.VerMiReservaActivity;
 import com.example.lolineke2.databinding.FragmentReservasBinding;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,10 +26,10 @@ import com.example.lolineke2.databinding.FragmentReservasBinding;
 public class Reservas extends Fragment {
 
     private FragmentReservasBinding binding;
+    private List<String> pistas;
+    private ArrayAdapter<String> pistasLista;
 
-    public Reservas() {
-        // Required empty public constructor
-    }
+    public Reservas() { }
 
     /**
      * Use this factory method to create a new instance of
@@ -47,13 +55,34 @@ public class Reservas extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentReservasBinding.inflate(inflater,container,false);
 
+        setListInfo();
+        setOnClick();
+
+        return binding.getRoot();
+    }
+
+    private void setListInfo(){
+        pistas = new ArrayList<>(Arrays.asList("uno","dos","tres"));
+        pistasLista = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,pistas);
+        Log.i("size",""+pistasLista.getCount());
+        binding.rvMisReservas.setAdapter(pistasLista);
+    }
+
+    private void setOnClick(){
         binding.buttonBackMisReservas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent verMiReserva = new Intent(getActivity(), VerMiReservaActivity.class);
-                startActivity(verMiReserva);
+                getActivity().onBackPressed();
             }
         });
-        return binding.getRoot();
+
+        binding.rvMisReservas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent verLaReservaSeleccionada = new Intent(getActivity(),VerMiReservaActivity.class);
+                startActivity(verLaReservaSeleccionada);
+                getActivity().finish();
+            }
+        });
     }
 }

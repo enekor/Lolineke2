@@ -10,6 +10,7 @@ import com.example.lolineke2.aplicacion.ui.Intercambio;
 public class MainActivity extends AppCompatActivity implements FragmentHolder {
 
     private FragmentTransaction transaction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,5 +25,11 @@ public class MainActivity extends AppCompatActivity implements FragmentHolder {
         transaction.replace(R.id.fragmentContainerLR,f);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

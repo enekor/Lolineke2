@@ -60,8 +60,23 @@ public class Login extends Fragment {
         // Inflate the layout for this fragment
 
         binding = FragmentLoginBinding.inflate(inflater,container,false);
-        View root = binding.getRoot();
 
+       setOnClick();
+
+        return binding.getRoot();
+    }
+
+    private void openActivity(Class clase){
+        Intent intent = new Intent(getActivity(),clase);
+        startActivity(intent);
+    }
+
+    private boolean checkFields(){
+        return !binding.etEmailLogin.getText().toString().equalsIgnoreCase("") &&
+                !binding.etPasswordLogin.getText().toString().equalsIgnoreCase("");
+    }
+
+    private void setOnClick(){
         binding.buttonLoggin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +89,7 @@ public class Login extends Fragment {
                             if(response.isSuccessful()&&response.code()==200){
                                 String token=response.body();
                                 openActivity(Home.class);
+                                getActivity().finish();
                             }else{
                                 Toast.makeText(getActivity(), "Error en petición", Toast.LENGTH_SHORT).show();
                             }
@@ -95,18 +111,5 @@ public class Login extends Fragment {
                 Intercambio.getInstance().getFragmentHolder().changeFragment(new Register());
             }
         });
-
-
-        return root;
-    }
-
-    private void openActivity(Class clase){
-        Intent intent = new Intent(getActivity(),clase);
-        startActivity(intent);
-    }
-
-    private boolean checkFields(){
-        return !binding.etEmailLogin.getText().toString().equalsIgnoreCase("") &&
-                !binding.etPasswordLogin.getText().toString().equalsIgnoreCase("");
     }
 }

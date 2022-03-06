@@ -12,6 +12,7 @@ import com.example.lolineke2.R;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.aplicacion.ui.home.AlquilarActivity;
 import com.example.lolineke2.aplicacion.ui.home.dosClickTipoPista.ClickTipoPista;
+import com.example.lolineke2.databinding.FragmentHomeBinding;
 import com.example.lolineke2.databinding.FragmentMainBinding;
 
 /**
@@ -59,6 +60,7 @@ public class Home extends Fragment {
                 Intercambio.getInstance().setDeporteSeleccionado(deportes[i]);
                 Intent clickTipoPista = new Intent(getActivity(),AlquilarActivity.class);
                 startActivity(clickTipoPista);
+                getActivity().finish();
             }
         });
         return binding.getRoot();

@@ -1,11 +1,14 @@
 package com.example.lolineke2.aplicacion.ui.home.seisReservaPreview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.lolineke2.aplicacion.Home;
+import com.example.lolineke2.aplicacion.ui.home.AlquilarActivity;
 import com.example.lolineke2.databinding.FragmentReservaPreviewBinding;
 
 /**
@@ -46,14 +49,27 @@ public class ReservaPreview extends Fragment {
 
         binding = FragmentReservaPreviewBinding.inflate(inflater,container,false);
 
-        binding.aceptarPreview.setOnClickListener(view -> Toast.makeText(getActivity(), "Hola :)", Toast.LENGTH_SHORT).show());
-        binding.backPreview.setOnClickListener(new View.OnClickListener() {
+        setOnClick();
+
+        return binding.getRoot();
+    }
+
+    private void setOnClick(){
+        binding.aceptarPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getActivity(), "Reserva creada con exito", Toast.LENGTH_SHORT).show();
+
+                Intent homeActivity = new Intent(getActivity(), Home.class);
+                startActivity(homeActivity);
                 getActivity().finish();
             }
         });
-
-        return binding.getRoot();
+        binding.backPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
     }
 }
