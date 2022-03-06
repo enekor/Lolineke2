@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.lolineke2.aplicacion.Home;
+import com.example.lolineke2.aplicacion.mapper.InfraestructuraMapper;
+import com.example.lolineke2.aplicacion.rest.Api;
+import com.example.lolineke2.aplicacion.rest.model.Infraestructura;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.aplicacion.ui.home.AlquilarActivity;
 import com.example.lolineke2.aplicacion.ui.home.cincoSelecHora.SelecHora;
@@ -18,8 +21,10 @@ import com.example.lolineke2.aplicacion.ui.home.cuatroSelecDia.SelecDia;
 import com.example.lolineke2.aplicacion.ui.home.tresClickPista.ClickPista;
 import com.example.lolineke2.databinding.FragmentClickTipoPistaBinding;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,7 +35,6 @@ import java.util.List;
 public class ClickTipoPista extends Fragment {
 
     private FragmentClickTipoPistaBinding binding;
-    private List<String> pistas;
     private ArrayAdapter<String> pistasLista;
 
     public ClickTipoPista() {
@@ -54,8 +58,6 @@ public class ClickTipoPista extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -73,9 +75,8 @@ public class ClickTipoPista extends Fragment {
     }
 
     private void setListInfo(){
-        pistas = new ArrayList<>(Arrays.asList("uno","dos","tres"));
-        pistasLista = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,pistas);
-        Log.i("size",""+pistasLista.getCount());
+        pistasLista = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
+                InfraestructuraMapper.getInstance().infraestructuraToString(Intercambio.getInstance().getInfraestructuras()));
         binding.pistasLV.setAdapter(pistasLista);
     }
 
@@ -90,6 +91,11 @@ public class ClickTipoPista extends Fragment {
         binding.pistasLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intercambio.getInstance().setInfraestructuras(Collections.singletonList(
+                        Intercambio.getInstance().getInfraestructuras().get(i)
+                ));
+
                 Intercambio.getInstance().getFragmentHolder().changeFragment(new SelecDia());
             }
         });

@@ -1,6 +1,9 @@
 package com.example.lolineke2.aplicacion.ui;
 
+import com.example.lolineke2.aplicacion.rest.model.Infraestructura;
 import com.example.lolineke2.aplicacion.rest.model.Usuario;
+
+import java.util.List;
 
 public class Intercambio {
     private static Intercambio instance;
@@ -16,6 +19,7 @@ public class Intercambio {
     private FragmentHolder fragmentHolder;
     private String deporteSeleccionado;
     private Usuario usuario;
+    private List<Infraestructura> infraestructuras;
 
     public FragmentHolder getFragmentHolder() {
         return fragmentHolder;
@@ -39,5 +43,13 @@ public class Intercambio {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public List<Infraestructura> getInfraestructuras() {
+        return infraestructuras;
+    }
+
+    public void setInfraestructuras(List<Infraestructura> infraestructuras) {
+        this.infraestructuras = infraestructuras;
     }
 }
