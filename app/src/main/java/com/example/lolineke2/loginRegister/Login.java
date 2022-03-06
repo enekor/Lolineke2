@@ -11,6 +11,12 @@ import com.example.lolineke2.R;
 import com.example.lolineke2.aplicacion.Home;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.databinding.FragmentLoginBinding;
+import com.example.lolineke2.loginRegister.rest.Api;
+import com.example.lolineke2.loginRegister.rest.ApiConfig;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +26,8 @@ import com.example.lolineke2.databinding.FragmentLoginBinding;
 public class Login extends Fragment {
 
     private FragmentLoginBinding binding;
+    private Api api;
+
     public Login() {
         // Required empty public constructor
     }
@@ -43,6 +51,7 @@ public class Login extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        api= ApiConfig.getClient().create(Api.class);
     }
 
     @Override
@@ -57,7 +66,23 @@ public class Login extends Fragment {
             @Override
             public void onClick(View view) {
                 if(checkFields()){
-                    openActivity(Home.class);
+                    Call<String> login=api.loginWithoutToken(binding.etEmailLogin.getText().toString(),
+                            binding.etPasswordLogin.getText().toString());
+                    login.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if(response.isSuccessful()&&response.code()==200){
+                                String token=response.body();
+                                openActivity(Home.class);
+                            }else{
+                                Toast.makeText(getActivity(), "Error en petición", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Toast.makeText(getActivity(), "Error en petición", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }else{
                     Toast.makeText(getActivity(), "Hay campos vacios", Toast.LENGTH_SHORT).show();
                 }
