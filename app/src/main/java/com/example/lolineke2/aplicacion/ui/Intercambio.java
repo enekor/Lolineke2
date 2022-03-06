@@ -1,5 +1,7 @@
 package com.example.lolineke2.aplicacion.ui;
 
+import com.example.lolineke2.aplicacion.rest.model.Usuario;
+
 public class Intercambio {
     private static Intercambio instance;
     private Intercambio(){}
@@ -13,6 +15,7 @@ public class Intercambio {
 
     private FragmentHolder fragmentHolder;
     private String deporteSeleccionado;
+    private Usuario usuario;
 
     public FragmentHolder getFragmentHolder() {
         return fragmentHolder;
@@ -28,5 +31,13 @@ public class Intercambio {
 
     public void setDeporteSeleccionado(String deporteSeleccionado) {
         this.deporteSeleccionado = deporteSeleccionado;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

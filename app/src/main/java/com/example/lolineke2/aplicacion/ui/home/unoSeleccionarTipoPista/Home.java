@@ -57,7 +57,7 @@ public class Home extends Fragment {
             String[] deportes = getResources().getStringArray(R.array.deportes);
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intercambio.getInstance().setDeporteSeleccionado(deportes[i]);
+                Intercambio.getInstance().setDeporteSeleccionado(deportes[i].toUpperCase());
                 Intent clickTipoPista = new Intent(getActivity(),AlquilarActivity.class);
                 startActivity(clickTipoPista);
                 getActivity().finish();

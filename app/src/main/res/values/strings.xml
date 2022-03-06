@@ -22,13 +22,14 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <!--"Futbol","Baloncesto","Volley","Tenis","Rugby","Paddle"-->
+    <!--TENIS, PADEL, FUTBOL, BALONCESTO, RUGBY, VOLEY-->
     <string-array name="deportes">
         <item name="Futbol">Futbol</item>
         <item name="Baloncesto">Baloncesto</item>
-        <item name="Volley">Volley</item>
+        <item name="Volley">Voley</item>
         <item name="Tenis">Tenis</item>
         <item name="Rugby">Rugby</item>
-        <item name="Paddle">Paddle</item>
+        <item name="Paddle">Padle</item>
+
     </string-array>
 </resources>
