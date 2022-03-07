@@ -83,8 +83,9 @@ public class Login extends Fragment {
         binding.buttonLoggin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //login();
+                
                 Intent intent = new Intent(getActivity(), Home.class);
+              
                 startActivity(intent);
                 getActivity().finish();
             }

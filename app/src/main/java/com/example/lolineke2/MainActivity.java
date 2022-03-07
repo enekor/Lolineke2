@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements FragmentHolder {
         if(!sharedPreferences.getString("token","null").equalsIgnoreCase("null")){
             checkToken(sharedPreferences.getString("usuario","null"),
                     sharedPreferences.getString("pass","null"),
-                    UUID.fromString(sharedPreferences.getString("token",null)));
+
+                    UUID.fromString(sharedPreferences.getString("token","null")));
 
             if(login){
                 finish();

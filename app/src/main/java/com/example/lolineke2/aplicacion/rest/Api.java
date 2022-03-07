@@ -26,4 +26,7 @@ public interface Api {
 
     @PUT("/cliente/put")
     Call<Usuario> reservaUsuario(@Body Usuario usuario);
+
+    @GET("/infraestructura/libres")
+    Call<List<Integer>> getHorasLibres(@Query("id") UUID id,@Query("year") int year, @Query("mounth") int mounth, @Query("day") int day);
 }

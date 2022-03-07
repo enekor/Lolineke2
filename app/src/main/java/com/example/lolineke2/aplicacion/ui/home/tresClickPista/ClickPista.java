@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.lolineke2.aplicacion.rest.model.Infraestructura;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.aplicacion.ui.home.cuatroSelecDia.SelecDia;
 import com.example.lolineke2.databinding.FragmentClickPistaBinding;
@@ -46,6 +47,7 @@ public class ClickPista extends Fragment {
 
         binding = FragmentClickPistaBinding.inflate(inflater,container,false);
 
+        initFields();
         setOnClick();
 
         return binding.getRoot();
@@ -65,5 +67,12 @@ public class ClickPista extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+    }
+
+    private void initFields(){
+        Infraestructura pista = Intercambio.getInstance().getInfraestructuras().get(0);
+        binding.descripcionPista.setText(pista.getDescripcion());
+        binding.nombrePista.setText(pista.getNombre());
+        binding.precioAlquiler.setText(pista.getCoste()+"/h");
     }
 }

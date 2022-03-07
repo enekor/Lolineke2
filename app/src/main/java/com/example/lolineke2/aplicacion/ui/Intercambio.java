@@ -54,8 +54,9 @@ public class Intercambio {
     public void setInfraestructuras(List<Infraestructura> infraestructuras) {
         this.infraestructuras = infraestructuras;
     }
-
+  
     public Alquiler getAlquiler() { return alquiler; }
+
 
     public void setAlquiler(Alquiler alquiler) {
         this.alquiler = alquiler;
