@@ -7,10 +7,11 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface Api {
     @GET("/cliente/login")
-    Call<Usuario> loginWithToken(@Query(value="token")String token,
+    Call<Usuario> loginWithToken(@Query(value="token") UUID token,
                                 @Query(value="mail")String mail,
                                 @Query(value="password")String password);
 
@@ -20,4 +21,7 @@ public interface Api {
 
     @GET("/infraestructura/tipoandroid")
     Call<List<Infraestructura>> getInfraestructurasByTipo(@Query(value = "tipo") String tipo);
+
+    @GET("/infraestructura/libres")
+    Call<List<Integer>> getHorasLibres(@Query("id") UUID id,@Query("year") int year, @Query("mounth") int mounth, @Query("day") int day);
 }

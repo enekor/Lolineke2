@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.lolineke2.aplicacion.rest.model.Alquiler;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.aplicacion.ui.home.cincoSelecHora.SelecHora;
 import com.example.lolineke2.databinding.FragmentSelecDiaBinding;
+
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,7 +65,10 @@ public class SelecDia extends Fragment {
             @Override
             public void onClick(View view) {
                 if(checkFields()){
+
+                    Intercambio.getInstance().setAlquiler(createAlquiler());
                     Intercambio.getInstance().getFragmentHolder().changeFragment(new SelecHora());
+
                 }else{
                     Toast.makeText(getActivity(), "Hay campos vacios", Toast.LENGTH_SHORT).show();
                 }
@@ -84,6 +90,20 @@ public class SelecDia extends Fragment {
                 ano = year;
             }
         });
+    }
+
+    private Alquiler createAlquiler(){
+        Alquiler alquiler = new Alquiler();
+
+        alquiler.setId(UUID.randomUUID());
+        alquiler.setInfraestructura(Intercambio.getInstance().getInfraestructuras().get(0));
+        alquiler.setCliente(Intercambio.getInstance().getUsuario());
+        alquiler.setYear(ano);
+        alquiler.setDay(dia);
+        alquiler.setMonth(mes);
+        alquiler.setCoste(Intercambio.getInstance().getInfraestructuras().get(0).getCoste());
+
+        return alquiler;
     }
 
     private boolean checkFields(){

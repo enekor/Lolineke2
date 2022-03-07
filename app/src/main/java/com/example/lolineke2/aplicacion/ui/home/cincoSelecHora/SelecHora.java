@@ -1,19 +1,23 @@
 package com.example.lolineke2.aplicacion.ui.home.cincoSelecHora;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.example.lolineke2.aplicacion.rest.Api;
+import com.example.lolineke2.aplicacion.rest.ApiConfig;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.aplicacion.ui.home.seisReservaPreview.ReservaPreview;
 import com.example.lolineke2.databinding.FragmentSelecHoraBinding;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,8 +28,9 @@ import java.util.List;
 public class SelecHora extends Fragment {
 
     private FragmentSelecHoraBinding binding;
-    private List<String> pistas;
-    private ArrayAdapter<String> pistasLista;
+    private ArrayAdapter<Integer> horasLista;
+    private Api api;
+    private List<Integer> horas;
 
     public SelecHora() {
         // Required empty public constructor
@@ -48,6 +53,7 @@ public class SelecHora extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        api = ApiConfig.getClient().create(Api.class);
     }
 
     @Override
@@ -63,16 +69,17 @@ public class SelecHora extends Fragment {
     }
 
     private void setListInfo(){
-        pistas = new ArrayList<>(Arrays.asList("uno","dos","tres"));
-        pistasLista = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,pistas);
-        Log.i("size",""+pistasLista.getCount());
-        binding.horasLista.setAdapter(pistasLista);
+        horas = getHorasLibres();
+        horasLista = new ArrayAdapter<Integer>(getActivity(), android.R.layout.simple_list_item_1,horas);
+        binding.horasLista.setAdapter(horasLista);
     }
 
     private void setOnClick(){
         binding.horasLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intercambio.getInstance().getAlquiler().setInicio(horas.get(i));
+                Intercambio.getInstance().getAlquiler().setFin(horas.get(i)+1);
                 Intercambio.getInstance().getFragmentHolder().changeFragment(new ReservaPreview());
             }
         });
@@ -83,5 +90,26 @@ public class SelecHora extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+    }
+
+    private List<Integer> getHorasLibres(){
+        final List<Integer>[] horas = new List[]{new ArrayList<>()};
+        Call<List<Integer>> horasCall = api.getHorasLibres(Intercambio.getInstance().getInfraestructuras().get(0).getId(),
+                Intercambio.getInstance().getAlquiler().getYear(),
+                Intercambio.getInstance().getAlquiler().getMonth(),
+                Intercambio.getInstance().getAlquiler().getDay());
+
+        horasCall.enqueue(new Callback<List<Integer>>() {
+            @Override
+            public void onResponse(Call<List<Integer>> call, Response<List<Integer>> response) {
+                horas[0] = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<Integer>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Fallo al comunicar con la base de datos", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return horas[0];
     }
 }
