@@ -5,17 +5,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.lolineke2.R;
+import com.example.lolineke2.aplicacion.mapper.AlquilerMapper;
+import com.example.lolineke2.aplicacion.mapper.InfraestructuraMapper;
+import com.example.lolineke2.aplicacion.rest.Api;
+import com.example.lolineke2.aplicacion.rest.ApiConfig;
+import com.example.lolineke2.aplicacion.rest.model.Alquiler;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.aplicacion.ui.reservas.verReservaX.VerMiReservaActivity;
 import com.example.lolineke2.databinding.FragmentReservasBinding;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,8 +33,9 @@ import java.util.List;
 public class Reservas extends Fragment {
 
     private FragmentReservasBinding binding;
-    private List<String> pistas;
-    private ArrayAdapter<String> pistasLista;
+    List<Alquiler> alquileres;
+    private ArrayAdapter<String> alquileresLista;
+    private Api api;
 
     public Reservas() { }
 
@@ -48,11 +56,13 @@ public class Reservas extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        api = ApiConfig.getClient().create(Api.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         binding = FragmentReservasBinding.inflate(inflater,container,false);
 
         setListInfo();
@@ -62,10 +72,10 @@ public class Reservas extends Fragment {
     }
 
     private void setListInfo(){
-        pistas = new ArrayList<>(Arrays.asList("uno","dos","tres"));
-        pistasLista = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,pistas);
-        Log.i("size",""+pistasLista.getCount());
-        binding.rvMisReservas.setAdapter(pistasLista);
+        alquileres = getAlquileres();
+        alquileresLista = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
+                AlquilerMapper.getInstance().alquileresToString(getAlquileres()));
+        binding.rvMisReservas.setAdapter(alquileresLista);
     }
 
     private void setOnClick(){
@@ -79,10 +89,28 @@ public class Reservas extends Fragment {
         binding.rvMisReservas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intercambio.getInstance().setAlquiler(alquileres.get(i));
                 Intent verLaReservaSeleccionada = new Intent(getActivity(),VerMiReservaActivity.class);
                 startActivity(verLaReservaSeleccionada);
                 getActivity().finish();
             }
         });
+    }
+
+    private List<Alquiler> getAlquileres(){
+        final List<Alquiler>[] ret = new List[]{new ArrayList<>()};
+        Call<List<Alquiler>> alquileres = api.getAlquileresByUsuario(Intercambio.getInstance().getUsuario().getId());
+        alquileres.enqueue(new Callback<List<Alquiler>>() {
+            @Override
+            public void onResponse(Call<List<Alquiler>> call, Response<List<Alquiler>> response) {
+                ret[0] = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<Alquiler>> call, Throwable t) {
+                Toast.makeText(getActivity(), "No se ha podido acceder a la base de datos", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return ret[0];
     }
 }

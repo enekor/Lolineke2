@@ -1,5 +1,6 @@
 package com.example.lolineke2.aplicacion.rest;
 
+import com.example.lolineke2.aplicacion.rest.model.Alquiler;
 import com.example.lolineke2.aplicacion.rest.model.Infraestructura;
 import com.example.lolineke2.aplicacion.rest.model.Usuario;
 import retrofit2.Call;
@@ -29,4 +30,9 @@ public interface Api {
 
     @GET("/infraestructura/libres")
     Call<List<Integer>> getHorasLibres(@Query("id") UUID id,@Query("year") int year, @Query("mounth") int mounth, @Query("day") int day);
+
+    @GET("/alquiler")
+    Call<List<Alquiler>> getAlquileresByUsuario(@Query("id") UUID id);
+
+
 }

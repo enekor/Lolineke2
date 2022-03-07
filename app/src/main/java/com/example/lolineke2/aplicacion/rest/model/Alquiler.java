@@ -86,4 +86,13 @@ public class Alquiler {
     public void setDay(int day) {
         this.day = day;
     }
+
+    @Override
+    public String toString() {
+        return infraestructura.getNombre()+" -> "+day+"/"+month+"/"+year+" | "+coste+"€";
+    }
+
+    public String getFecha(){
+        return day+"/"+month+"/"+year;
+    }
 }

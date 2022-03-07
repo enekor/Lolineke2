@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.lolineke2.MainActivity;
 import com.example.lolineke2.R;
+import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.databinding.FragmentUserBinding;
 
 /**
@@ -25,6 +27,7 @@ import com.example.lolineke2.databinding.FragmentUserBinding;
 public class UserFragment extends Fragment {
 
     private FragmentUserBinding binding;
+    private MediaPlayer mediaPlayer;
 
     public UserFragment() {
         // Required empty public constructor
@@ -47,6 +50,7 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mediaPlayer = MediaPlayer.create(getActivity(),R.raw.mercadona_mercadona_cancion);
     }
 
     @Override
@@ -55,7 +59,12 @@ public class UserFragment extends Fragment {
 
         binding = FragmentUserBinding.inflate(inflater,container,false);
 
+        mediaPlayer.start();
+
         binding.buttonDarseDeBajaUprofile.setBackgroundColor(Color.RED);
+        binding.tvEmailUprofile.setText(Intercambio.getInstance().getUsuario().getCorreo());
+        binding.tvInfouserUprofile.setText("Usuario con "+Intercambio.getInstance().getUsuario().getAlquileres().size()+" alquileres a su nombre");
+        binding.tvUsernameUprofile.setText(Intercambio.getInstance().getUsuario().getNombre());
 
         setOnClick();
 
@@ -67,13 +76,6 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 alertDialog();
-            }
-        });
-
-        binding.buttonGoToEditUprofile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "Never gonna give you up, never gonna let you down", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -99,11 +101,7 @@ public class UserFragment extends Fragment {
     }
 
     private void deleteAccount(){
-        Toast.makeText(getActivity(), "Cuenta borrada con exito", Toast.LENGTH_SHORT).show();
-
-        Intent mainActivity = new Intent(getActivity(),MainActivity.class);
-        startActivity(mainActivity);
-        getActivity().finish();
+        Toast.makeText(getActivity(), "No gracias, te queremos demasiado como cliente para esta despedida tan tragica", Toast.LENGTH_LONG).show();
     }
 
 
