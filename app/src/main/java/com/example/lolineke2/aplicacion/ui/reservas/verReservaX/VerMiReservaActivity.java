@@ -61,7 +61,7 @@ public class VerMiReservaActivity extends AppCompatActivity {
                         if(response.code()==204){
                             Toast.makeText(VerMiReservaActivity.this, "Reserva eliminada con exito", Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(VerMiReservaActivity.this, "No se ha podido borrar la reserva", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(VerMiReservaActivity.this, "Reserva borrada con exito", Toast.LENGTH_SHORT).show();
                         }
                     }
 
