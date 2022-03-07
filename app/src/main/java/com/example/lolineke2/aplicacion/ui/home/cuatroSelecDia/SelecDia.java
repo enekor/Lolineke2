@@ -20,6 +20,7 @@ import com.example.lolineke2.databinding.FragmentSelecDiaBinding;
 public class SelecDia extends Fragment {
 
     private FragmentSelecDiaBinding binding;
+    private int dia, mes, ano;
 
     public SelecDia() {
         // Required empty public constructor
@@ -72,6 +73,15 @@ public class SelecDia extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().onBackPressed();
+            }
+        });
+
+        binding.calendarioDia.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int mounth, int day) {
+                dia = day;
+                mes = mounth;
+                ano = year;
             }
         });
     }

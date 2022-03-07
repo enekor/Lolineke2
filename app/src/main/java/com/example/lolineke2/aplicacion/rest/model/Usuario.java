@@ -6,7 +6,7 @@ import java.util.UUID;
 public class Usuario {
     private UUID id;
     private String nombre;
-    private  String correo;
+    private String correo;
     private String password;
     private String foto;
     private List<Alquiler> alquileres;

@@ -1,11 +1,12 @@
 package com.example.lolineke2.aplicacion.rest.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Login {
 
     private LocalDateTime fecha;
-    private  String token;
+    private UUID token;
 
     public LocalDateTime getFecha() {
         return fecha;
@@ -15,11 +16,11 @@ public class Login {
         this.fecha = fecha;
     }
 
-    public String getToken() {
+    public UUID getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(UUID token) {
         this.token = token;
     }
 }
