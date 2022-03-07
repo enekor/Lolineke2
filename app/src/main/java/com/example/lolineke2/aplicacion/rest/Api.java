@@ -6,6 +6,7 @@ import com.example.lolineke2.aplicacion.rest.model.Usuario;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
@@ -22,16 +23,16 @@ public interface Api {
     Call<Usuario> loginWithoutToken(@Query(value="mail")String mail,
                                     @Query(value="password")String password);
 
-    @GET("/infraestructura/tipoandroid")
+    @GET("/infraestructura/tipo")
     Call<List<Infraestructura>> getInfraestructurasByTipo(@Query(value = "tipo") String tipo);
 
-    @PUT("/cliente/put")
+    @POST("/cliente/post")
     Call<Usuario> crearUsuario(@Body Usuario usuario);
 
     @GET("/infraestructura/libres")
     Call<List<Integer>> getHorasLibres(@Query("id") UUID id,@Query("year") int year, @Query("mounth") int mounth, @Query("day") int day);
 
-    @GET("/alquiler/alquiler")
+    @GET("/alquiler/cliente")
     Call<List<Alquiler>> getAlquileresByUsuario(@Query("id") UUID id);
 
 }

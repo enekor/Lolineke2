@@ -83,11 +83,7 @@ public class Login extends Fragment {
         binding.buttonLoggin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
-                Intent intent = new Intent(getActivity(), Home.class);
-              
-                startActivity(intent);
-                getActivity().finish();
+                login();
             }
         });
 
@@ -107,6 +103,7 @@ public class Login extends Fragment {
                 @Override
                 public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                     if(response.isSuccessful()&&response.code()==200){
+                        Toast.makeText(getActivity(), ""+response.code(), Toast.LENGTH_SHORT).show();
                         loginSuccessful(response);
                     }else{
                         Toast.makeText(getActivity(), "Usuario y/o password incorrectos", Toast.LENGTH_SHORT).show();

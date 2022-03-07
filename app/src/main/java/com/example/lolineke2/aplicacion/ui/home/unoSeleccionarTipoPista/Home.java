@@ -83,7 +83,6 @@ public class Home extends Fragment {
             public void onResponse(Call<List<Infraestructura>> call, Response<List<Infraestructura>> response) {
                 if(response.isSuccessful() && response.code()==200){
                     Intercambio.getInstance().setInfraestructuras(response.body());
-
                     Intent clickTipoPista = new Intent(getActivity(),AlquilarActivity.class);
                     startActivity(clickTipoPista);
                     getActivity().finish();
