@@ -63,14 +63,10 @@ public class SelecHora extends Fragment {
 
         binding = FragmentSelecHoraBinding.inflate(inflater,container,false);
 
-        setListInfo();
+        getHorasLibres();
         setOnClick();
 
         return binding.getRoot();
-    }
-
-    private void setListInfo(){
-        getHorasLibres();
     }
 
     private void setOnClick(){
@@ -80,6 +76,8 @@ public class SelecHora extends Fragment {
                 Intercambio.getInstance().getAlquiler().setInicio(horas.get(i));
                 Intercambio.getInstance().getAlquiler().setFin(horas.get(i)+1);
                 Intercambio.getInstance().getFragmentHolder().changeFragment(new ReservaPreview());
+
+                Toast.makeText(getActivity(), ""+Intercambio.getInstance().getAlquiler().getInicio(), Toast.LENGTH_SHORT).show();
             }
         });
 
