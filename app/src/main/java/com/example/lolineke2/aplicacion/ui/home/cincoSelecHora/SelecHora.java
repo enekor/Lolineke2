@@ -1,6 +1,7 @@
 package com.example.lolineke2.aplicacion.ui.home.cincoSelecHora;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -69,9 +70,7 @@ public class SelecHora extends Fragment {
     }
 
     private void setListInfo(){
-        horas = getHorasLibres();
-        horasLista = new ArrayAdapter<Integer>(getActivity(), android.R.layout.simple_list_item_1,horas);
-        binding.horasLista.setAdapter(horasLista);
+        getHorasLibres();
     }
 
     private void setOnClick(){
@@ -92,8 +91,7 @@ public class SelecHora extends Fragment {
         });
     }
 
-    private List<Integer> getHorasLibres(){
-        final List<Integer>[] horas = new List[]{new ArrayList<>()};
+    private void getHorasLibres(){
         Call<List<Integer>> horasCall = api.getHorasLibres(Intercambio.getInstance().getInfraestructuras().get(0).getId(),
                 Intercambio.getInstance().getAlquiler().getYear(),
                 Intercambio.getInstance().getAlquiler().getMonth(),
@@ -102,7 +100,10 @@ public class SelecHora extends Fragment {
         horasCall.enqueue(new Callback<List<Integer>>() {
             @Override
             public void onResponse(Call<List<Integer>> call, Response<List<Integer>> response) {
-                horas[0] = response.body();
+                Log.i("info","valores"+response.body());
+                horas= response.body();
+                horasLista = new ArrayAdapter<Integer>(getActivity(), android.R.layout.simple_list_item_1,horas);
+                binding.horasLista.setAdapter(horasLista);
             }
 
             @Override
@@ -110,6 +111,5 @@ public class SelecHora extends Fragment {
                 Toast.makeText(getActivity(), "Fallo al comunicar con la base de datos", Toast.LENGTH_SHORT).show();
             }
         });
-        return horas[0];
     }
 }

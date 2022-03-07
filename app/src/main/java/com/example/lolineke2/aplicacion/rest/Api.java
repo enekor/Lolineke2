@@ -29,8 +29,11 @@ public interface Api {
     @POST("/cliente/post")
     Call<Usuario> crearUsuario(@Body Usuario usuario);
 
+    @PUT("/cliente/put")
+    Call<Usuario> reservaUsuario(@Body Usuario usuario);
+
     @GET("/infraestructura/libres")
-    Call<List<Integer>> getHorasLibres(@Query("id") UUID id,@Query("year") int year, @Query("mounth") int mounth, @Query("day") int day);
+    Call<List<Integer>> getHorasLibres(@Query("id") UUID id,@Query("year") int year, @Query("month") int month, @Query("day") int day);
 
     @GET("/alquiler/cliente")
     Call<List<Alquiler>> getAlquileresByUsuario(@Query("id") UUID id);
