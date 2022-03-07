@@ -19,6 +19,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.util.UUID;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Login#newInstance} factory method to
@@ -30,6 +32,7 @@ public class Login extends Fragment {
     private Api api;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private boolean login;
 
     public Login() {
         // Required empty public constructor
@@ -64,7 +67,8 @@ public class Login extends Fragment {
 
         binding = FragmentLoginBinding.inflate(inflater,container,false);
 
-       setOnClick();
+        checkSharedPreferences();
+        setOnClick();
 
         return binding.getRoot();
     }
@@ -137,4 +141,42 @@ public class Login extends Fragment {
         editor.putString("pass",Intercambio.getInstance().getUsuario().getPassword());
         editor.putString("token",Intercambio.getInstance().getUsuario().getLogin().getToken().toString());
     }
+
+    private void checkSharedPreferences(){
+        sharedPreferences = getActivity().getSharedPreferences("login",getActivity().MODE_PRIVATE);
+
+        if(!sharedPreferences.getString("token","null").equalsIgnoreCase("null")){
+            checkToken(sharedPreferences.getString("usuario","null"),
+                    sharedPreferences.getString("pass","null"),
+
+                    UUID.fromString(sharedPreferences.getString("token","null")));
+
+            if(login){
+                getActivity().finish();
+                startActivity(new Intent(getActivity(), Home.class));
+            }
+        }
+    }
+
+    private void checkToken(String usuario, String pass, UUID token){
+        Call<Usuario> user = api.loginWithToken(token,usuario,pass);
+        user.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if(response.isSuccessful() && response.code()==200){
+                    login = true;
+                    Intercambio.getInstance().setUsuario(new Usuario());
+                }else{
+                    login = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                login = false;
+            }
+        });
+
+    }
+
 }

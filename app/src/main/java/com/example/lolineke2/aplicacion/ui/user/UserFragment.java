@@ -59,7 +59,7 @@ public class UserFragment extends Fragment {
 
         binding = FragmentUserBinding.inflate(inflater,container,false);
 
-        //mediaPlayer.start();
+        mediaPlayer.start();
 
         binding.buttonDarseDeBajaUprofile.setBackgroundColor(Color.RED);
         binding.tvEmailUprofile.setText(Intercambio.getInstance().getUsuario().getCorreo());

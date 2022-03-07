@@ -35,7 +35,6 @@ public class Reservas extends Fragment {
     private FragmentReservasBinding binding;
     List<Alquiler> alquileres;
     private ArrayAdapter<String> alquileresLista;
-    private Api api;
 
     public Reservas() { }
 
@@ -56,7 +55,6 @@ public class Reservas extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        api = ApiConfig.getClient().create(Api.class);
     }
 
     @Override
@@ -72,9 +70,9 @@ public class Reservas extends Fragment {
     }
 
     private void setListInfo(){
-        alquileres = getAlquileres();
+        alquileres = Intercambio.getInstance().getUsuario().getAlquileres();
         alquileresLista = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
-                AlquilerMapper.getInstance().alquileresToString(getAlquileres()));
+                AlquilerMapper.getInstance().alquileresToString(alquileres));
         binding.rvMisReservas.setAdapter(alquileresLista);
     }
 
@@ -91,26 +89,10 @@ public class Reservas extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intercambio.getInstance().setAlquiler(alquileres.get(i));
                 Intent verLaReservaSeleccionada = new Intent(getActivity(),VerMiReservaActivity.class);
+                verLaReservaSeleccionada.putExtra("i",i);
                 startActivity(verLaReservaSeleccionada);
                 getActivity().finish();
             }
         });
-    }
-
-    private List<Alquiler> getAlquileres(){
-        final List<Alquiler>[] ret = new List[]{new ArrayList<>()};
-        Call<List<Alquiler>> alquileres = api.getAlquileresByUsuario(Intercambio.getInstance().getUsuario().getId());
-        alquileres.enqueue(new Callback<List<Alquiler>>() {
-            @Override
-            public void onResponse(Call<List<Alquiler>> call, Response<List<Alquiler>> response) {
-                ret[0] = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<List<Alquiler>> call, Throwable t) {
-                Toast.makeText(getActivity(), "No se ha podido acceder a la base de datos", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return ret[0];
     }
 }

@@ -24,16 +24,14 @@ public class MainActivity extends AppCompatActivity implements FragmentHolder {
     private FragmentTransaction transaction;
     private SharedPreferences sharedPreferences;
     private Api api;
-    private boolean login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intercambio.getInstance().setFragmentHolder(this);
         api= ApiConfig.getClient().create(Api.class);
-
-        sharedPreferences();
     }
 
     @Override
@@ -49,42 +47,4 @@ public class MainActivity extends AppCompatActivity implements FragmentHolder {
         finish();
     }
 
-    private void sharedPreferences(){
-        sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
-
-        if(!sharedPreferences.getString("token","null").equalsIgnoreCase("null")){
-            checkToken(sharedPreferences.getString("usuario","null"),
-                    sharedPreferences.getString("pass","null"),
-
-                    UUID.fromString(sharedPreferences.getString("token","null")));
-
-            if(login){
-                finish();
-                startActivity(new Intent(this, Home.class));
-            }
-        }else{
-            Intercambio.getInstance().setFragmentHolder(this);
-        }
-    }
-
-    private void checkToken(String usuario, String pass, UUID token){
-        Call<Usuario> user = api.loginWithToken(token,usuario,pass);
-        user.enqueue(new Callback<Usuario>() {
-            @Override
-            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                if(response.isSuccessful() && response.code()==200){
-                    login = true;
-                    Intercambio.getInstance().setUsuario(new Usuario());
-                }else{
-                    login = false;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Usuario> call, Throwable t) {
-                login = false;
-            }
-        });
-
-    }
 }
