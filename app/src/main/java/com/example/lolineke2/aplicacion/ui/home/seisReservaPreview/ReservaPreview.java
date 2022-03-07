@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.lolineke2.aplicacion.Home;
 import com.example.lolineke2.aplicacion.rest.Api;
+import com.example.lolineke2.aplicacion.rest.ApiConfig;
 import com.example.lolineke2.aplicacion.rest.model.Alquiler;
 import com.example.lolineke2.aplicacion.rest.model.Usuario;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
@@ -53,6 +54,7 @@ public class ReservaPreview extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        api = ApiConfig.getClient().create(Api.class);
     }
 
     @Override
