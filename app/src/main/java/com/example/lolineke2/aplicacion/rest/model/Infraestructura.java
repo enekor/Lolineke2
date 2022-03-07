@@ -5,13 +5,16 @@ import java.util.List;
 import java.util.UUID;
 
 public class Infraestructura {
+
     private UUID id;
     private List<Alquiler> alquileres;
-    private String tipo;
     private String nombre;
+    private String tipo;
     private String foto;
-    private LocalDateTime apertura;
-    private LocalDateTime cierre;
+    private int apertura;
+    private int cierre;
+    private double coste;
+    private String descripcion;
 
     public UUID getId() {
         return id;
@@ -27,6 +30,14 @@ public class Infraestructura {
 
     public void setAlquileres(List<Alquiler> alquileres) {
         this.alquileres = alquileres;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getTipo() {
@@ -45,33 +56,36 @@ public class Infraestructura {
         this.foto = foto;
     }
 
-    public LocalDateTime getApertura() {
+    public int getApertura() {
         return apertura;
     }
 
-    public void setApertura(LocalDateTime apertura) {
+    public void setApertura(int apertura) {
         this.apertura = apertura;
     }
 
-    public LocalDateTime getCierre() {
+    public int getCierre() {
         return cierre;
     }
 
-    public void setCierre(LocalDateTime cierre) {
+    public void setCierre(int cierre) {
         this.cierre = cierre;
     }
 
-    public String getNombre() {
-        return nombre;
+    public double getCoste() {
+        return coste;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCoste(double coste) {
+        this.coste = coste;
     }
 
-    @Override
-    public String toString() {
-        return id+": "+nombre;
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }
 
