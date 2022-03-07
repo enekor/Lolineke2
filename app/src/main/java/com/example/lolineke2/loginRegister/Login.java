@@ -83,7 +83,10 @@ public class Login extends Fragment {
         binding.buttonLoggin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login();
+                //login();
+                Intent intent = new Intent(getActivity(), Home.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -134,6 +137,6 @@ public class Login extends Fragment {
 
         editor.putString("usuario",Intercambio.getInstance().getUsuario().getCorreo());
         editor.putString("pass",Intercambio.getInstance().getUsuario().getPassword());
-        editor.putString("token",Intercambio.getInstance().getUsuario().getLogin().getToken());
+        editor.putString("token",Intercambio.getInstance().getUsuario().getLogin().getToken().toString());
     }
 }

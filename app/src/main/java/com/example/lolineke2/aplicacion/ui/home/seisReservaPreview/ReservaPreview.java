@@ -8,8 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.lolineke2.aplicacion.Home;
+import com.example.lolineke2.aplicacion.rest.Api;
+import com.example.lolineke2.aplicacion.rest.model.Alquiler;
+import com.example.lolineke2.aplicacion.rest.model.Usuario;
+import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.aplicacion.ui.home.AlquilarActivity;
 import com.example.lolineke2.databinding.FragmentReservaPreviewBinding;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +30,7 @@ import com.example.lolineke2.databinding.FragmentReservaPreviewBinding;
 public class ReservaPreview extends Fragment {
 
     private FragmentReservaPreviewBinding binding;
+    private Api api;
 
     public ReservaPreview() {
         // Required empty public constructor
@@ -58,11 +70,26 @@ public class ReservaPreview extends Fragment {
         binding.aceptarPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Reserva creada con exito", Toast.LENGTH_SHORT).show();
+                Intercambio.getInstance().getUsuario().getAlquileres().add(
+                        Intercambio.getInstance().getAlquiler()
+                );
 
-                Intent homeActivity = new Intent(getActivity(), Home.class);
-                startActivity(homeActivity);
-                getActivity().finish();
+                Call<Usuario> usuarioCall = api.reservaUsuario(Intercambio.getInstance().getUsuario());
+                usuarioCall.enqueue(new Callback<Usuario>() {
+                    @Override
+                    public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                        Toast.makeText(getActivity(), "Reserva creada con exito", Toast.LENGTH_SHORT).show();
+                        Intent homeActivity = new Intent(getActivity(), Home.class);
+                        startActivity(homeActivity);
+                        getActivity().finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Usuario> call, Throwable t) {
+                        Toast.makeText(getActivity(),"Fallo al crear la reserva",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
         binding.backPreview.setOnClickListener(new View.OnClickListener() {
