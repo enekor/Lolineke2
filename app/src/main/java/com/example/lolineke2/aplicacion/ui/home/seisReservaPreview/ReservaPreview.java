@@ -13,15 +13,10 @@ import com.example.lolineke2.aplicacion.rest.ApiConfig;
 import com.example.lolineke2.aplicacion.rest.model.Alquiler;
 import com.example.lolineke2.aplicacion.rest.model.Usuario;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
-import com.example.lolineke2.aplicacion.ui.home.AlquilarActivity;
 import com.example.lolineke2.databinding.FragmentReservaPreviewBinding;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,6 +58,7 @@ public class ReservaPreview extends Fragment {
 
         binding = FragmentReservaPreviewBinding.inflate(inflater,container,false);
 
+        setTexts();
         setOnClick();
 
         return binding.getRoot();
@@ -100,5 +96,14 @@ public class ReservaPreview extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+    }
+
+    private void setTexts(){
+        Alquiler alquiler = Intercambio.getInstance().getAlquiler();
+        binding.tituloPreview.setText(alquiler.getInfraestructura().getNombre());
+        binding.costePreview.setText(String.valueOf(alquiler.getCoste()));
+        binding.aNombreDePreview.setText(alquiler.getCliente().getNombre());
+        binding.diaReservaPreview.setText(alquiler.getFecha());
+        binding.horaReservaApi.setText(alquiler.getInicio()+":00");
     }
 }

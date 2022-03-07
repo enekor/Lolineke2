@@ -64,14 +64,8 @@ public class SelecDia extends Fragment {
         binding.selecHoraDia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkFields()){
-
-                    Intercambio.getInstance().setAlquiler(createAlquiler());
-                    Intercambio.getInstance().getFragmentHolder().changeFragment(new SelecHora());
-
-                }else{
-                    Toast.makeText(getActivity(), "Hay campos vacios", Toast.LENGTH_SHORT).show();
-                }
+                Intercambio.getInstance().setAlquiler(createAlquiler());
+                Intercambio.getInstance().getFragmentHolder().changeFragment(new SelecHora());
             }
         });
 
@@ -104,9 +98,5 @@ public class SelecDia extends Fragment {
         alquiler.setCoste(Intercambio.getInstance().getInfraestructuras().get(0).getCoste());
 
         return alquiler;
-    }
-
-    private boolean checkFields(){
-        return !binding.nombreDeQuien.getText().toString().equalsIgnoreCase("");
     }
 }

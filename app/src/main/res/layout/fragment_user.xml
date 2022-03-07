@@ -36,16 +36,12 @@
             app:layout_constraintBottom_toTopOf="@+id/button_darse_de_baja_uprofile"
             android:layout_marginBottom="35dp"/>
     <Button
-            android:text="Edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/button_go_to_edit_uprofile"
-            app:layout_constraintStart_toStartOf="@+id/tv_infouser_uprofile"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="35dp"/>
-    <Button
             android:text="Delete Account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/button_darse_de_baja_uprofile"
             app:layout_constraintEnd_toEndOf="@+id/tv_infouser_uprofile"
-            app:layout_constraintBottom_toBottomOf="@+id/button_go_to_edit_uprofile" android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            app:layout_constraintStart_toStartOf="@+id/tv_infouser_uprofile"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="25dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

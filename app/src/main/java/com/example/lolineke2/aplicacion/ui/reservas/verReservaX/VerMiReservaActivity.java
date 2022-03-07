@@ -6,6 +6,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.lolineke2.aplicacion.Home;
+import com.example.lolineke2.aplicacion.rest.model.Alquiler;
+import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.databinding.ActivityVerMiReservaBinding;
 
 public class VerMiReservaActivity extends AppCompatActivity {
@@ -16,6 +18,14 @@ public class VerMiReservaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityVerMiReservaBinding.inflate(getLayoutInflater());
+
+        Alquiler alquiler = Intercambio.getInstance().getAlquiler();
+        binding.tvAnombredeReservaInfo.setText(alquiler.getCliente().getNombre());
+        binding.tvDescripcionReservaInfo.setText(alquiler.getInfraestructura().getDescripcion());
+        binding.tvDiaReservaInfo.setText(alquiler.getFecha());
+        binding.tvPistanameReservaInfo.setText(alquiler.getInfraestructura().getNombre());
+        binding.tvPrecioReservaInfo.setText(String.valueOf(alquiler.getCoste()));
+        binding.tvHoraReservaInfo.setText(alquiler.getInicio()+":00 - "+alquiler.getFin()+":00");
 
         setOnClick();
 
