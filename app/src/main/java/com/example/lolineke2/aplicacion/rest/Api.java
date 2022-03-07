@@ -26,13 +26,12 @@ public interface Api {
     Call<List<Infraestructura>> getInfraestructurasByTipo(@Query(value = "tipo") String tipo);
 
     @PUT("/cliente/put")
-    Call<Usuario> reservaUsuario(@Body Usuario usuario);
+    Call<Usuario> crearUsuario(@Body Usuario usuario);
 
     @GET("/infraestructura/libres")
     Call<List<Integer>> getHorasLibres(@Query("id") UUID id,@Query("year") int year, @Query("mounth") int mounth, @Query("day") int day);
 
-    @GET("/alquiler")
+    @GET("/alquiler/alquiler")
     Call<List<Alquiler>> getAlquileresByUsuario(@Query("id") UUID id);
-
 
 }

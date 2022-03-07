@@ -9,18 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.lolineke2.aplicacion.Home;
 import com.example.lolineke2.aplicacion.rest.Api;
-import com.example.lolineke2.aplicacion.rest.model.Alquiler;
 import com.example.lolineke2.aplicacion.rest.model.Usuario;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
-import com.example.lolineke2.aplicacion.ui.home.AlquilarActivity;
 import com.example.lolineke2.databinding.FragmentReservaPreviewBinding;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,7 +68,7 @@ public class ReservaPreview extends Fragment {
                         Intercambio.getInstance().getAlquiler()
                 );
 
-                Call<Usuario> usuarioCall = api.reservaUsuario(Intercambio.getInstance().getUsuario());
+                Call<Usuario> usuarioCall = api.crearUsuario(Intercambio.getInstance().getUsuario());
                 usuarioCall.enqueue(new Callback<Usuario>() {
                     @Override
                     public void onResponse(Call<Usuario> call, Response<Usuario> response) {

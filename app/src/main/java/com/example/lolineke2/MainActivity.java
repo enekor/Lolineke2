@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements FragmentHolder {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         finish();
     }
 

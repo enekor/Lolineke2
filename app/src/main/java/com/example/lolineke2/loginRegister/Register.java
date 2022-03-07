@@ -1,11 +1,15 @@
 package com.example.lolineke2.loginRegister;
 
 import android.os.Bundle;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.lolineke2.R;
+import com.example.lolineke2.aplicacion.rest.Api;
+import com.example.lolineke2.aplicacion.rest.ApiConfig;
+import com.example.lolineke2.aplicacion.rest.model.Usuario;
 import com.example.lolineke2.aplicacion.ui.Intercambio;
 import com.example.lolineke2.databinding.FragmentRegisterBinding;
 
@@ -17,6 +21,7 @@ import com.example.lolineke2.databinding.FragmentRegisterBinding;
 public class Register extends Fragment {
 
     private FragmentRegisterBinding binding;
+    private Api api;
 
     public Register() {
         // Required empty public constructor
@@ -39,6 +44,7 @@ public class Register extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        api = ApiConfig.getClient().create(Api.class);
     }
 
     @Override
@@ -47,12 +53,41 @@ public class Register extends Fragment {
 
         binding = FragmentRegisterBinding.inflate(inflater,container,false);
 
+        setOnClick();
+
+        return binding.getRoot();
+    }
+
+    private void setOnClick(){
         binding.buttonGoToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intercambio.getInstance().getFragmentHolder().changeFragment(new Login());
             }
         });
-        return binding.getRoot();
+
+        binding.buttonOkRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(binding.etEmailRegister.getText().toString().equalsIgnoreCase("") ||
+                        binding.etPasswordRegister.getText().toString().equalsIgnoreCase("")||
+                        binding.etRepeatPasswordRegister.getText().toString().equalsIgnoreCase("")||
+                        binding.etUsernameRegister.getText().toString().equalsIgnoreCase("")){
+                    Toast.makeText(getActivity(), "Hay campos vacios", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(binding.etPasswordRegister.getText().toString().equals(binding.etRepeatPasswordRegister.getText().toString())){
+                        Usuario user = new Usuario();
+                        user.setCorreo(binding.etEmailRegister.getText().toString());
+                        user.setNombre(binding.etUsernameRegister.getText().toString());
+                        user.setPassword(binding.etPasswordRegister.getText().toString());
+
+                        api.crearUsuario(user);
+                        Toast.makeText(getActivity(), "Usuario creado con exito", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getActivity(), "Los campos password y repeat password no coinciden", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
 }
