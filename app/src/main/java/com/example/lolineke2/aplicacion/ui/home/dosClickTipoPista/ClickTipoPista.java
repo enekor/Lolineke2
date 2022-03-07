@@ -96,7 +96,7 @@ public class ClickTipoPista extends Fragment {
                         Intercambio.getInstance().getInfraestructuras().get(i)
                 ));
 
-                Intercambio.getInstance().getFragmentHolder().changeFragment(new SelecDia());
+                Intercambio.getInstance().getFragmentHolder().changeFragment(new ClickPista());
             }
         });
 

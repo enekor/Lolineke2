@@ -17,6 +17,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.util.UUID;
+
 public class MainActivity extends AppCompatActivity implements FragmentHolder {
 
     private FragmentTransaction transaction;
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHolder {
         if(!sharedPreferences.getString("token","null").equalsIgnoreCase("null")){
             checkToken(sharedPreferences.getString("usuario","null"),
                     sharedPreferences.getString("pass","null"),
-                    sharedPreferences.getString("token",null));
+                    UUID.fromString(sharedPreferences.getString("token","null")));
 
             if(login){
                 finish();
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHolder {
         }
     }
 
-    private void checkToken(String usuario, String pass, String token){
+    private void checkToken(String usuario, String pass, UUID token){
         Call<Usuario> user = api.loginWithToken(token,usuario,pass);
         user.enqueue(new Callback<Usuario>() {
             @Override
