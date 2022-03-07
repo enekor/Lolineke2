@@ -1,6 +1,5 @@
 package com.example.lolineke2.aplicacion.rest.model;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Alquiler {
@@ -10,7 +9,6 @@ public class Alquiler {
     private int fin;
     private double coste;
     private Infraestructura infraestructura;
-    private Usuario cliente;
     private int year;
     private int month;
     private int day;
@@ -53,14 +51,6 @@ public class Alquiler {
 
     public void setInfraestructura(Infraestructura infraestructura) {
         this.infraestructura = infraestructura;
-    }
-
-    public Usuario getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Usuario cliente) {
-        this.cliente = cliente;
     }
 
     public int getYear() {

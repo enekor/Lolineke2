@@ -91,7 +91,7 @@ public class SelecDia extends Fragment {
 
         alquiler.setId(UUID.randomUUID());
         alquiler.setInfraestructura(Intercambio.getInstance().getInfraestructuras().get(0));
-        alquiler.setCliente(Intercambio.getInstance().getUsuario());
+        //alquiler.setCliente(Intercambio.getInstance().getUsuario());
         alquiler.setYear(ano);
         alquiler.setDay(dia);
         alquiler.setMonth(mes);

@@ -20,7 +20,7 @@ public class VerMiReservaActivity extends AppCompatActivity {
         binding = ActivityVerMiReservaBinding.inflate(getLayoutInflater());
 
         Alquiler alquiler = Intercambio.getInstance().getAlquiler();
-        binding.tvAnombredeReservaInfo.setText(alquiler.getCliente().getNombre());
+        //binding.tvAnombredeReservaInfo.setText(alquiler.getCliente().getNombre());
         binding.tvDescripcionReservaInfo.setText(alquiler.getInfraestructura().getDescripcion());
         binding.tvDiaReservaInfo.setText(alquiler.getFecha());
         binding.tvPistanameReservaInfo.setText(alquiler.getInfraestructura().getNombre());

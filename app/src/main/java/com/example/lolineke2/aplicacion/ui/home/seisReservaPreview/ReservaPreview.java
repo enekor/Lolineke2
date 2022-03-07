@@ -57,7 +57,9 @@ public class ReservaPreview extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentReservaPreviewBinding.inflate(inflater,container,false);
-
+        Intercambio.getInstance().getUsuario().getAlquileres().add(
+                Intercambio.getInstance().getAlquiler()
+        );
         setTexts();
         setOnClick();
 
@@ -68,10 +70,6 @@ public class ReservaPreview extends Fragment {
         binding.aceptarPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intercambio.getInstance().getUsuario().getAlquileres().add(
-                        Intercambio.getInstance().getAlquiler()
-                );
-
                 Call<Usuario> usuarioCall = api.reservaUsuario(Intercambio.getInstance().getUsuario());
                 usuarioCall.enqueue(new Callback<Usuario>() {
                     @Override
@@ -102,7 +100,7 @@ public class ReservaPreview extends Fragment {
         Alquiler alquiler = Intercambio.getInstance().getAlquiler();
         binding.tituloPreview.setText(alquiler.getInfraestructura().getNombre());
         binding.costePreview.setText(String.valueOf(alquiler.getCoste()));
-        binding.aNombreDePreview.setText(alquiler.getCliente().getNombre());
+        //binding.aNombreDePreview.setText(alquiler.getCliente().getNombre());
         binding.diaReservaPreview.setText(alquiler.getFecha());
         binding.horaReservaApi.setText(alquiler.getInicio()+":00");
     }
